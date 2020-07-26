@@ -47,7 +47,7 @@ module.exports = (env) =>
 
     devices = {}
 
-    constructor: (@ipAddress, @serverPort, @macAddress, @upnpPort, @config, @storagePath) ->
+    constructor: (@ipAddress, @serverPort, @macAddress, @upnpPort, @config, @storagePath,@ipAddressDocker) ->
       super()
       users = @_readUsers()
 
@@ -274,6 +274,8 @@ module.exports = (env) =>
 
     _getHueTemplate: =>
       bridgeIdMac = @_getSNUUIDFromMac()
+      ip = if @ipAddressDocker then @ipAddressDocker else @ipAddress
+      port = if @ipAddresDcoker then 80 else @serverPort
       response = """
 <?xml version="1.0" encoding="UTF-8" ?>
 <root xmlns="urn:schemas-upnp-org:device-1-0">
@@ -281,7 +283,7 @@ module.exports = (env) =>
     <major>1</major>
     <minor>0</minor>
   </specVersion>
-  <URLBase>http://#{@ipAddress}:#{@serverPort}/</URLBase>
+  <URLBase>http://#{ip}:#{port}/</URLBase>
   <device>
     <deviceType>urn:schemas-upnp-org:device:Basic:1</deviceType>
     <friendlyName>Pimatic Hue bridge</friendlyName>

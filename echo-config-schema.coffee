@@ -9,6 +9,13 @@ Otherwise the first non loopback addres will be used.
 """
       type: "string"
       required: false
+    addressDocker:
+      description: """
+The ip address of the network interface of the host if docker is used.
+Otherwise the first non loopback addres will be used.
+"""
+      type: "string"
+      required: false
     mac:
       description: "The MAC address of the network interface to use"
       type: "string"

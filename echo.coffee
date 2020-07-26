@@ -21,6 +21,7 @@ module.exports = (env) =>
           +" Please provide ip and mac address in plugin config!")
 
       ipAddress = if @config.address then @config.address else networkInfo.address
+      ipAddressDocker = if @config.addressDocker then @config.addressDocker else false
       macAddress = if @config.mac then @config.mac else networkInfo.mac
       serverPort = @config.port
       upnpPort = 1900
@@ -30,7 +31,7 @@ module.exports = (env) =>
         fs.mkdirSync(storageDir)
 
       upnpServer = new UpnpServer(ipAddress, serverPort, macAddress, upnpPort)
-      hueEmulator = new HueEmulator(ipAddress, serverPort, macAddress, upnpPort, @config, storageDir)
+      hueEmulator = new HueEmulator(ipAddress, serverPort, macAddress, upnpPort, @config, storageDir, ipAddressDocker)
 
       env.logger.debug "Using ip address : #{ipAddress}"
 
